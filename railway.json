@@ -1,0 +1,44 @@
+{
+  "name": "Pterodactyl Panel",
+  "services": [
+    {
+      "name": "mysql",
+      "source": {
+        "image": "mysql:8.0"
+      },
+      "envs": {
+        "MYSQL_ROOT_PASSWORD": "root",
+        "MYSQL_DATABASE": "panel",
+        "MYSQL_USER": "ptero",
+        "MYSQL_PASSWORD": "secret"
+      }
+    },
+    {
+      "name": "redis",
+      "source": {
+        "image": "redis:alpine"
+      }
+    },
+    {
+      "name": "panel",
+      "source": {
+        "image": "ghcr.io/pterodactyl/panel:latest"
+      },
+      "envs": {
+        "APP_URL": "https://your-railway-url.up.railway.app",
+        "DB_HOST": "mysql",
+        "DB_PORT": "3306",
+        "DB_DATABASE": "panel",
+        "DB_USERNAME": "ptero",
+        "DB_PASSWORD": "secret",
+        "REDIS_HOST": "redis"
+      },
+      "ports": [
+        {
+          "port": 80,
+          "targetPort": 8080
+        }
+      ]
+    }
+  ]
+}
